@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideavault/core/utils/app_colors.dart';
 
 
 class IdeaCard extends StatelessWidget {
@@ -16,11 +17,11 @@ class IdeaCard extends StatelessWidget {
    Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.cardBackground,
               borderRadius: BorderRadius.circular(12.0),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
+                  color:AppColors.textSecondary.withOpacity(0.2),
                   spreadRadius: 2,
                   blurRadius: 5,
                 ),
@@ -36,7 +37,7 @@ class IdeaCard extends StatelessWidget {
                 SizedBox(height: 8.0),
                 Text(
                   'A detailed description of my fantastic app idea goes here.',
-                  style: TextStyle(fontSize: 14.0, color: Colors.black54),
+                  style: TextStyle(fontSize: 14.0, color: AppColors.textPrimary),
                 ),
               ],
             ),
@@ -44,7 +45,7 @@ class IdeaCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(12.0),
         // ... all the other decoration properties
       ),
@@ -62,7 +63,7 @@ class IdeaCard extends StatelessWidget {
           const SizedBox(height: 8.0),
           Text(
             content,
-            style: const TextStyle(fontSize: 14.0, color: Colors.black54),
+            style: const TextStyle(fontSize: 14.0, color: AppColors.textPrimary),
           ),
         ],
       ),
