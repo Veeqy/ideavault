@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ideavault/features/ideas/presentation/screens/home_screen.dart';
+// import 'package:ideavault/core/routing/app_router.dart';
+import 'package:ideavault/core/utils/routing/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +11,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'IdeaVault',
-      home: HomeScreen(),
+      routerConfig: appRouter, // Use our router
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        useMaterial3: true,
+      ),
     );
   }
 }
-
-
-
