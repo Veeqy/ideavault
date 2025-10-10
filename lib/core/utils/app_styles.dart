@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideavault/core/utils/app_colors.dart';
 
+// A central place for all our app's text styles.
 class AppStyles {
   static const TextStyle heading = TextStyle(
     fontFamily: 'Poppins',
