@@ -4,16 +4,19 @@ import 'package:ideavault/core/routing/app_route_names.dart';
 
 class AddEditIdeaScreen extends StatefulWidget {
   final String? ideaId;
-  String? _selectedCategory;
-  AddEditIdeaScreen({super.key, this.ideaId});
+  
+  const AddEditIdeaScreen({super.key, this.ideaId});
 
   @override
   State<AddEditIdeaScreen> createState() => _AddEditIdeaScreenState();
+    
 }
 
 class _AddEditIdeaScreenState extends State<AddEditIdeaScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
+  String? _selectedCategory;
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -66,9 +69,22 @@ class _AddEditIdeaScreenState extends State<AddEditIdeaScreen> {
       onPressed: () async {
         // We use 'pushNamed' because it's like a dialog, we expect a result back
         final result = await context.pushNamed(AppRouteNames.categoryPicker);
+        if (result != null && result is String) {
+          setState(() {
+            _selectedCategory = result;
+          });
+        }
       },
       child: const Text('Pick Category'),
     ),
+    if (_selectedCategory != null)
+      Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Text(
+          'Selected Category: $_selectedCategory',
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
   ],
         )
       ),
