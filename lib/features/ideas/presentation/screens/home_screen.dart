@@ -36,7 +36,6 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-            // context.pushNamed(AppRouteNames.newIdea);
             context.push('/new-idea');
         },
         child: const Icon(Icons.add),

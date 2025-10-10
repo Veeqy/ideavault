@@ -1,8 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ideavault/core/routing/app_route_names.dart';
 
 class AddEditIdeaScreen extends StatefulWidget {
-  const AddEditIdeaScreen({super.key});
+  final String? ideaId;
+  String? _selectedCategory;
+  AddEditIdeaScreen({super.key, this.ideaId});
 
   @override
   State<AddEditIdeaScreen> createState() => _AddEditIdeaScreenState();
@@ -18,37 +21,56 @@ class _AddEditIdeaScreenState extends State<AddEditIdeaScreen> {
     super.dispose();
   }
 
+  bool get isEditing => widget.ideaId != null;
+
+  @override
+  void initState() {
+    super.initState();
+    if (isEditing) {
+      _titleController.text = 'This is an existing idea';
+      _contentController.text =
+          'Here are the details of the idea I am editing.';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('New Idea')),
+      appBar: AppBar(title: Text(isEditing ? 'Edit Idea' : 'New Idea')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            Expanded(
-              child: TextField(
-                controller: _contentController,
-                maxLines: null,
-                expands: true,
-                textAlignVertical: TextAlignVertical.top,
-                decoration: const InputDecoration(
-                  labelText: 'Content',
-                  alignLabelWithHint: true,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-          ],
+  children: [
+    TextField(
+      controller: _titleController,
+      decoration: const InputDecoration(
+        labelText: 'Title',
+        border: OutlineInputBorder(),
+      ),
+    ),
+    const SizedBox(height: 16.0),
+    Expanded(
+      child: TextField(
+        controller: _contentController,
+        maxLines: null,
+        expands: true,
+        textAlignVertical: TextAlignVertical.top,
+        decoration: const InputDecoration(
+          labelText: 'Content',
+          alignLabelWithHint: true,
+          border: OutlineInputBorder(),
         ),
+      ),
+    ),
+    ElevatedButton(
+      onPressed: () async {
+        // We use 'pushNamed' because it's like a dialog, we expect a result back
+        final result = await context.pushNamed(AppRouteNames.categoryPicker);
+      },
+      child: const Text('Pick Category'),
+    ),
+  ],
+        )
       ),
     );
   }
