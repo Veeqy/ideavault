@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,6 +9,12 @@ class MainShell extends StatelessWidget {
   const MainShell({super.key, required this.navigationShell});
 
   void _onTap(int index) {
+    if (index == navigationShell.currentIndex) {
+      // If the user taps the current tab, pop to the root of that tab's stack
+     log('Popping to root of tab $index');
+  
+      return;
+    }
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,
@@ -26,6 +34,7 @@ class MainShell extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Ideas'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+          BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
         ],
       ),
     );

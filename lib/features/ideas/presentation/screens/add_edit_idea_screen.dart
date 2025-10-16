@@ -9,7 +9,6 @@ class AddEditIdeaScreen extends StatefulWidget {
 
   @override
   State<AddEditIdeaScreen> createState() => _AddEditIdeaScreenState();
-    
 }
 
 class _AddEditIdeaScreenState extends State<AddEditIdeaScreen> {
@@ -43,50 +42,60 @@ class _AddEditIdeaScreenState extends State<AddEditIdeaScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-  children: [
-    TextField(
-      controller: _titleController,
-      decoration: const InputDecoration(
-        labelText: 'Title',
-        border: OutlineInputBorder(),
-      ),
-    ),
-    const SizedBox(height: 16.0),
-    Expanded(
-      child: TextField(
-        controller: _contentController,
-        maxLines: null,
-        expands: true,
-        textAlignVertical: TextAlignVertical.top,
-        decoration: const InputDecoration(
-          labelText: 'Content',
-          alignLabelWithHint: true,
-          border: OutlineInputBorder(),
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(
+                labelText: 'Title',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            Expanded(
+              child: TextField(
+                controller: _contentController,
+                maxLines: null,
+                expands: true,
+                textAlignVertical: TextAlignVertical.top,
+                decoration: const InputDecoration(
+                  labelText: 'Content',
+                  alignLabelWithHint: true,
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.0),
+            ElevatedButton(
+              onPressed: () async {
+                final result = await context.pushNamed(
+                  AppRouteNames.categoryPicker,
+                );
+                if (result != null && result is String) {
+                  setState(() {
+                    _selectedCategory = result;
+                  });
+                }
+              },
+              child: const Text('Pick Category'),
+            ),
+
+            if (_selectedCategory != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  'Selected Category: $_selectedCategory',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            SizedBox(height: 10.0),
+            ElevatedButton(
+              onPressed: () {
+                context.pushNamed(AppRouteNames.tagPicker);
+              },
+              child: const Text('Tag Picker'),
+            ),
+          ],
         ),
-      ),
-    ),
-    ElevatedButton(
-      onPressed: () async {
-        // We use 'pushNamed' because it's like a dialog, we expect a result back
-        final result = await context.pushNamed(AppRouteNames.categoryPicker);
-        if (result != null && result is String) {
-          setState(() {
-            _selectedCategory = result;
-          });
-        }
-      },
-      child: const Text('Pick Category'),
-    ),
-    if (_selectedCategory != null)
-      Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Text(
-          'Selected Category: $_selectedCategory',
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-  ],
-        )
       ),
     );
   }

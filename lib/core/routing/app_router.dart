@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ideavault/core/common_widgets/main_shell.dart';
 import 'package:ideavault/core/routing/app_route_names.dart';
+import 'package:ideavault/features/ideas/presentation/screens/about_screen.dart';
 import 'package:ideavault/features/ideas/presentation/screens/add_edit_idea_screen.dart';
 import 'package:ideavault/features/ideas/presentation/screens/category_picker_screen.dart';
 import 'package:ideavault/features/ideas/presentation/screens/home_screen.dart';
+import 'package:ideavault/features/ideas/presentation/screens/tag_picker_screen.dart';
 import 'package:ideavault/features/settings/presentation/screens/settings_screen.dart';
 
 // Create a key for the root navigator
@@ -36,15 +38,34 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/settings',
-              name: AppRouteNames.settings ,
+              name: AppRouteNames.settings,
               builder: (context, state) => const SettingsScreen(),
+            ),
+          ],
+        ),
+
+        // The third branch, or tab
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/about',
+              name: AppRouteNames.about,
+              // parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => AboutScreen(),
             ),
           ],
         ),
       ],
     ),
+
     // A separate, top-level route for creating/editing ideas
     // This will display OVER the shell route
+    // StatefulShellRoute(
+    //   branches: [],
+    //   navigatorContainerBuilder: (context, state, child) {
+    //     return MainShell(navigationShell: null, child: child);
+    //   },
+    // ),
     GoRoute(
       path: '/idea/:id',
       name: AppRouteNames.editIdea,
@@ -58,13 +79,20 @@ final appRouter = GoRouter(
       path: '/new-idea',
       name: AppRouteNames.newIdea,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) =>  AddEditIdeaScreen(),
+      builder: (context, state) => AddEditIdeaScreen(),
     ),
-  GoRoute(
-  path: '/picker/category',
-  name: AppRouteNames.categoryPicker, // Add 'categoryPicker' to AppRouteNames
-  parentNavigatorKey: _rootNavigatorKey,
-  builder: (context, state) => const CategoryPickerScreen(),
-),
+    GoRoute(
+      path: '/picker/category',
+      name:
+          AppRouteNames.categoryPicker, // Add 'categoryPicker' to AppRouteNames
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const CategoryPickerScreen(),
+    ),
+    GoRoute(
+      path: '/tag-picker',
+      name: AppRouteNames.tagPicker, // Add 'categoryPicker' to AppRouteNames
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const TagPickerScreen(),
+    ),
   ],
 );

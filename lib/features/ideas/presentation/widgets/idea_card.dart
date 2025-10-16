@@ -8,11 +8,7 @@ class IdeaCard extends StatelessWidget {
   final String title;
   final String content;
 
-  const IdeaCard({
-    super.key,
-    required this.title,
-    required this.content,
-  });
+  const IdeaCard({super.key, required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {

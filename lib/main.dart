@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:ideavault/core/routing/app_router.dart';
+
 
 void main() {
   runApp(const MyApp());

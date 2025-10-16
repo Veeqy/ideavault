@@ -5,4 +5,5 @@ class AppRouteNames {
   static const String editIdea = 'edit-idea';
   static const String settings = 'settings';
   static const String categoryPicker = 'category-picker';
+  static const String tagPicker = 'tag-picker';
 }
