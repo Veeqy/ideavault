@@ -1,38 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ideavault/core/routing/app_route_names.dart';
 import 'package:ideavault/core/utils/app_colors.dart';
-import 'package:ideavault/core/utils/app_styles.dart';
+import 'package:ideavault/features/ideas/domain/idea.dart';
 
 class IdeaCard extends StatelessWidget {
-  final String title;
-  final String content;
-
-  const IdeaCard({super.key, required this.title, required this.content});
+  final Idea idea;
+  final VoidCallback? onTap;
+  final VoidCallback? onDelete;
+  const IdeaCard({super.key, required this.idea, this.onTap, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        context.pushNamed(AppRouteNames.editIdea, pathParameters: {'id': '123'});
-      },
-      borderRadius: BorderRadius.circular(
-        12.0,
-      ),
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12.0),
       child: Container(
         padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: AppColors.cardBackground
-          
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        decoration: BoxDecoration(color: AppColors.cardBackground),
+        child: Row(
           children: [
-            Text(title, style: AppStyles.heading),
-            const SizedBox(height: 8.0),
-            Text(
-              content,
-              style: AppStyles.body,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    idea.title,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    idea.content,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            if (onDelete != null)
+              IconButton(
+                icon: const Icon(Icons.delete_outline, color: Colors.red),
+                onPressed: onDelete,
             ),
           ],
         ),

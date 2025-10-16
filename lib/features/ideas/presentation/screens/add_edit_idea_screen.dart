@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ideavault/core/routing/app_route_names.dart';
+import 'package:ideavault/features/ideas/application/idea_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddEditIdeaScreen extends StatefulWidget {
   final String? ideaId;
-  
+
   const AddEditIdeaScreen({super.key, this.ideaId});
 
   @override
@@ -28,10 +30,13 @@ class _AddEditIdeaScreenState extends State<AddEditIdeaScreen> {
   @override
   void initState() {
     super.initState();
-    if (isEditing) {
-      _titleController.text = 'This is an existing idea';
-      _contentController.text =
-          'Here are the details of the idea I am editing.';
+    final ideaProvider = context.read<IdeaProvider>();
+    if (widget.ideaId != null) {
+      final idea = ideaProvider.getIdeaById(widget.ideaId!);
+      if (idea != null) {
+        _titleController.text = idea.title;
+        _contentController.text = idea.content;
+      }
     }
   }
 
@@ -66,14 +71,22 @@ class _AddEditIdeaScreenState extends State<AddEditIdeaScreen> {
             ),
             SizedBox(height: 10.0),
             ElevatedButton(
-              onPressed: () async {
-                final result = await context.pushNamed(
-                  AppRouteNames.categoryPicker,
-                );
-                if (result != null && result is String) {
-                  setState(() {
-                    _selectedCategory = result;
-                  });
+              onPressed: () {
+                final title = _titleController.text;
+                final content = _contentController.text;
+
+                if (title.isNotEmpty && content.isNotEmpty) {
+                  final ideaProvider = context.read<IdeaProvider>();
+                  if (isEditing) {
+                    ideaProvider.updateIdea(
+                      id: widget.ideaId!,
+                      title: title,
+                      content: content,
+                    );
+                  } else {
+                    ideaProvider.addIdea(title: title, content: content);
+                  }
+                  context.pop();
                 }
               },
               child: const Text('Pick Category'),
