@@ -27,7 +27,9 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: (){
+            // context.pushNamed('/new-idea');
+        },
         child: const Icon(Icons.add),
       ),
     );
