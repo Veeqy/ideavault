@@ -28,7 +28,7 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               path: '/ideas',
-              name: AppRouteNames.home,
+              name: AppRouteNames.HomeScreen,
               builder: (context, state) => const HomeScreen(),
             ),
           ],

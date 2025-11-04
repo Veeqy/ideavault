@@ -1,5 +1,5 @@
 class AppRouteNames {
-  static const String home = 'home';
+  static const String HomeScreen = 'home';
   static const String newIdea = 'new-idea';
   static const String about = 'about';
   static const String editIdea = 'edit-idea';

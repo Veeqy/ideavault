@@ -11,7 +11,7 @@ class IdeaCard extends StatelessWidget {
   const IdeaCard({super.key, required this.title, required this.content});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,) {
     return InkWell(
       onTap: () {
         context.pushNamed(AppRouteNames.editIdea, pathParameters: {'id': '123'});
