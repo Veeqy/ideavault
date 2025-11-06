@@ -26,9 +26,11 @@ class _AddEditIdeaScreenState extends ConsumerState<AddEditIdeaScreen> {
     super.initState();
     if (widget.ideaId != null) {
       isEditing = true;
-      _titleController.text = 'This is an existing idea';
-      _contentController.text =
-          'Here are the details of the idea I am editing.';
+      final idea = ref
+          .read(ideasProvider)
+          .firstWhere((idea) => idea.id == widget.ideaId, orElse: () => throw StateError('Idea not found'),);
+      _titleController.text = idea.title;
+      _contentController.text = idea.content;     
     } else {
       isEditing = false;
     }
@@ -106,9 +108,16 @@ class _AddEditIdeaScreenState extends ConsumerState<AddEditIdeaScreen> {
                   onPressed: () {
                     final title = _titleController.text;
                     final content = _contentController.text;
-                     if (title.isNotEmpty && content.isNotEmpty) {
-                      final ideaProvider = ref.read(ideasProvider.notifier);
-                      ideaProvider.addIdea(title: title, content: content);
+                    if (isEditing && widget.ideaId != null) {
+                      ref.read(ideasProvider.notifier).updateIdea(
+                            widget.ideaId!,
+                            title: title,
+                            content: content,
+                          );
+                    } else {
+                      ref
+                          .read(ideasProvider.notifier)
+                          .addIdea(title: title, content: content);
                     }
                     context.pop(AppRouteNames.HomeScreen);
                   },

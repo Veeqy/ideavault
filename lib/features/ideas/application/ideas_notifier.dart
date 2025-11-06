@@ -44,6 +44,7 @@ class IdeasNotifier extends StateNotifier<List<Idea>> {
     final updatedIdeas = List<Idea>.from(state);
     updatedIdeas[ideaIndex] = updatedIdea;
 
+
     // Update the state with the modified list.
     state = updatedIdeas;
   }
