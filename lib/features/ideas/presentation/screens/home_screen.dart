@@ -30,7 +30,7 @@ class HomeScreen extends ConsumerWidget {
                 const SizedBox(height: 40),
                 const Center(child: Text('No ideas yet. Tap + to add one.')),
               ]
-            : ideas
+            :ideas
                 .map((idea) => Padding(
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: IdeaCard(
@@ -46,6 +46,6 @@ class HomeScreen extends ConsumerWidget {
         },
         child: const Icon(Icons.add),
       ),
-    );
+    ); 
   }
 }

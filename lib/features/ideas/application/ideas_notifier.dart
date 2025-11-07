@@ -2,10 +2,7 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:ideavault/features/ideas/domain/idea.dart';
 
 class IdeasNotifier extends StateNotifier<List<Idea>> {
-  
-  IdeasNotifier()
-    : super([]);
-
+  IdeasNotifier(): super([]);
   /// Adds a new Idea to the state list.
   ///
   /// Generates a unique id based on the current timestamp, constructs an
