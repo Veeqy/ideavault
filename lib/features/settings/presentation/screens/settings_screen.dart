@@ -14,7 +14,7 @@ class SettingsScreen extends ConsumerWidget {
         title: const Text('Settings'),
         backgroundColor: AppColors.primary,
         ),
-      body:  SwitchListTile(value: themeMode == ThemeMode.dark,
+      body:  SwitchListTile(value: themeMode == ThemeMode.light,
        onChanged: (bool value) {
         ref.read(themeNotifierProvider.notifier).toggleTheme();
       }, 
